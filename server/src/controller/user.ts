@@ -1,36 +1,39 @@
 import { Request, Response } from "express";
 import { User } from "../models/user";
 import generateToken from "../utils/generateToken";
+import asyncHandler from "../utils/asyncHandler";
 
-export const registerUser = async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
+export const registerUser = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { name, email, password } = req.body;
 
-  const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email });
 
-  if (existingUser) {
-    res.status(400);
-    throw new Error("Email is already exist.");
-  }
+    if (existingUser) {
+      res.status(400);
+      throw new Error("Email is already exist.");
+    }
 
-  const user = await User.create({
-    name,
-    email,
-    password,
-  });
-
-  if (user) {
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
+    const user = await User.create({
+      name,
+      email,
+      password,
     });
-  } else {
-    res.status(400);
-    throw new Error("Something went wrong.");
-  }
-};
 
-export const loginUser = async (req: Request, res: Response) => {
+    if (user) {
+      res.status(201).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      });
+    } else {
+      res.status(400);
+      throw new Error("Something went wrong.");
+    }
+  }
+);
+
+export const loginUser = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const existingUser = await User.findOne({ email });
@@ -46,4 +49,4 @@ export const loginUser = async (req: Request, res: Response) => {
     res.status(401);
     throw new Error("Invalid credentials.");
   }
-};
+});
