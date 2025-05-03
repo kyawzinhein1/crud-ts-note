@@ -2,6 +2,7 @@ import express, { json } from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./db";
 import todoRoutes from "./routes/todo";
+import userRoutes from "./routes/user";
 
 import cors from "cors";
 
@@ -17,6 +18,7 @@ app.use(
 );
 app.use(json());
 
+app.use(userRoutes);
 app.use(todoRoutes);
 
 const PORT = process.env.PORT || 4000;
