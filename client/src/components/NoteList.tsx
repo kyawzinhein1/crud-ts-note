@@ -45,16 +45,23 @@ const NoteList = () => {
 
   return (
     <div>
-      <h2>Note List</h2>
+      <h2 className="text-xl font-bold">Share</h2>
+      <Input
+        onAddNote={handleAddNote}
+        onUpdateNote={handleUpdateNote}
+        editingNote={editNote}
+        setEditingNote={setEditNote}
+      />
       <ul>
         {notes.map((note, index) => (
-          <li key={index}>
-            {note.title}{" "}
+          <li key={index} className="flex items-center gap-2 mb-2">
+            <p className="font-semibold">{note.title}</p>
             <button
               type="button"
               onClick={() => {
                 handleDeleteNote(note._id);
               }}
+              className="text-red-600 underline font-medium cursor-pointer"
             >
               Delete
             </button>
@@ -63,18 +70,13 @@ const NoteList = () => {
               onClick={() => {
                 setEditNote(note);
               }}
+              className="underline font-medium cursor-pointer"
             >
-              Update
+              Edit
             </button>
           </li>
         ))}
       </ul>
-      <Input
-        onAddNote={handleAddNote}
-        onUpdateNote={handleUpdateNote}
-        editingNote={editNote}
-        setEditingNote={setEditNote}
-      />
     </div>
   );
 };

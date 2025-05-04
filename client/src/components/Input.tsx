@@ -42,15 +42,21 @@ const Input = ({
   };
 
   return (
-    <div>
+    <div className="mt-2 mb-4">
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={msg}
           onChange={(e) => setMsg(e.target.value)}
           placeholder="Enter note title..."
+          className="border p-2 rounded-sm mr-2"
         />
-        <button type="submit">{editingNote ? "Update" : "Save"}</button>
+        <button
+          type="submit"
+          className="text-white bg-black py-2 px-4 border rounded-sm cursor-pointer"
+        >
+          {editingNote ? "Update" : "Create"}
+        </button>
       </form>
     </div>
   );
