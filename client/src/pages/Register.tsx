@@ -27,14 +27,22 @@ const Register = () => {
             Name
           </label>
           <input type="text" className="form" {...register("name")} />
-          {errors.name && <span className="text-sm text-red-600 font-medium">{errors.name.message}</span>}
+          {errors.name && (
+            <span className="text-sm text-red-600 font-medium">
+              {errors.name.message}
+            </span>
+          )}
         </div>
         <div>
           <label htmlFor="email" className="block text-sm mb-1 text-gray-500">
             Email
           </label>
           <input type="email" className="form" {...register("email")} />
-          {errors.email && <span className="text-sm text-red-600 font-medium">{errors.email.message}</span>}
+          {errors.email && (
+            <span className="text-sm text-red-600 font-medium">
+              {errors.email.message}
+            </span>
+          )}
         </div>
         <div>
           <label
@@ -44,7 +52,11 @@ const Register = () => {
             Password
           </label>
           <input type="password" className="form" {...register("password")} />
-          {errors.password && <span className="text-sm text-red-600 font-medium">{errors.password.message}</span>}
+          {errors.password && (
+            <span className="text-sm text-red-600 font-medium">
+              {errors.password.message}
+            </span>
+          )}
         </div>
         <button
           type="submit"
