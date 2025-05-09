@@ -6,6 +6,7 @@ import NoteList from "./components/NoteList.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Main from "./layouts/Main.tsx";
 import Register from "./pages/Register.tsx";
+import Login from "./pages/Login.tsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "login",
+        element: <Login />,
       },
     ],
   },
