@@ -5,6 +5,7 @@ import "./index.css";
 import NoteList from "./components/NoteList.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Main from "./layouts/Main.tsx";
+import Register from "./pages/Register.tsx";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <NoteList />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },
