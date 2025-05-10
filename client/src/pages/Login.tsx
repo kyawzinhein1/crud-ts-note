@@ -23,17 +23,6 @@ const Login = () => {
       <h2 className="text-3xl font-bold mb-3 mt-10">Login</h2>
       <form className="flex flex-col space-y-2" onSubmit={handleSubmit(submit)}>
         <div>
-          <label htmlFor="name" className="block text-sm mb-1 text-gray-500">
-            Name
-          </label>
-          <input type="text" className="form" {...register("name")} />
-          {errors.name && (
-            <span className="text-sm text-red-600 font-medium">
-              {errors.name.message}
-            </span>
-          )}
-        </div>
-        <div>
           <label htmlFor="email" className="block text-sm mb-1 text-gray-500">
             Email
           </label>
