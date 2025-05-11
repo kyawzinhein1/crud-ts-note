@@ -26,7 +26,9 @@ const Login = () => {
       const res = await login(data).unwrap();
       dispatch(setUserInfo(res));
     } catch (err: any) {
-      console.log(err?.data?.message || err.message);
+      console.log(err);
+      
+      console.error(err?.data?.message || err.message);
     }
   };
 
