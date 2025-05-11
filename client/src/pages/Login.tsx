@@ -3,9 +3,14 @@ import { loginSchema } from "../schema/login";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { useLoginMutation } from "../slices/userApi";
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "../slices/auth";
+
 type FormInputs = z.infer<typeof loginSchema>;
 
 const Login = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -14,8 +19,15 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const submit: SubmitHandler<FormInputs> = (data) => {
-    console.log(data);
+  const [login, { isLoading }] = useLoginMutation();
+
+  const submit: SubmitHandler<FormInputs> = async (data) => {
+    try {
+      const res = await login(data).unwrap();
+      dispatch(setUserInfo(res));
+    } catch (err: any) {
+      console.log(err?.data?.message || err.message);
+    }
   };
 
   return (
