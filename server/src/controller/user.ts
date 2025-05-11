@@ -4,6 +4,7 @@ import generateToken from "../utils/generateToken";
 import asyncHandler from "../utils/asyncHandler";
 import { AuthRequest } from "../middlewares/authMiddleware";
 
+// POST -> /register
 export const registerUser = asyncHandler(
   async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
@@ -34,6 +35,7 @@ export const registerUser = asyncHandler(
   }
 );
 
+// POST -> /login
 export const loginUser = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
@@ -52,6 +54,7 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+// DELETE -> /logout
 export const logoutUser = asyncHandler(async (req: Request, res: Response) => {
   res.cookie("token", "", {
     httpOnly: true,
@@ -63,6 +66,7 @@ export const logoutUser = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
+// GET -> /profile
 export const getUserProfile = asyncHandler(
   async (req: AuthRequest, res: Response) => {
     const user = {
@@ -74,6 +78,7 @@ export const getUserProfile = asyncHandler(
   }
 );
 
+// PUT -> /profile
 export const updateUserProfile = asyncHandler(
   async (req: AuthRequest, res: Response) => {
     const user = await User.findById(req.user?._id);
