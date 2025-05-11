@@ -4,33 +4,47 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useLoginMutation } from "../slices/userApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUserInfo } from "../slices/auth";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { RootState } from "../store";
 
 type FormInputs = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm<FormInputs>({
     resolver: zodResolver(loginSchema),
   });
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
 
   const submit: SubmitHandler<FormInputs> = async (data) => {
     try {
       const res = await login(data).unwrap();
       dispatch(setUserInfo(res));
+      reset();
+      navigate("/");
     } catch (err: any) {
-      console.log(err);
-      
-      console.error(err?.data?.message || err.message);
+      toast.error(err?.data?.message);
     }
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div className="max-w-md mx-auto">
