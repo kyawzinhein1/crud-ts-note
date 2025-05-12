@@ -25,16 +25,24 @@ const Header = () => {
       <Link to={"/"} className="text-3xl font-bold">
         Simple Share
       </Link>
-      <div className="space-x-4">
+      <div className="space-x-2">
         {userInfo ? (
-          <button
-            type="button"
-            className="bg-red-600 text-white py-2 px-4 rounded-sm cursor-pointer"
-            onClick={logoutHandler}
-            disabled={isLoading}
-          >
-            Logout
-          </button>
+          <>
+            <Link
+              to={"/profile"}
+              className="text-white bg-black py-2 px-4 rounded-sm border border-black"
+            >
+              Profile
+            </Link>
+            <button
+              type="button"
+              className="bg-red-600 text-white py-2 px-4 rounded-sm cursor-pointer"
+              onClick={logoutHandler}
+              disabled={isLoading}
+            >
+              Logout
+            </button>
+          </>
         ) : (
           <>
             <Link
