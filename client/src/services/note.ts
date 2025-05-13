@@ -65,7 +65,7 @@ export const updateNote = async (id: string, title: string): Promise<Note> => {
     { title },
     { withCredentials: true }
   );
-  return data.todos;
+  return data.todo;
 };
 
 // export const deleteNote = async (id: string) => {
@@ -75,5 +75,5 @@ export const updateNote = async (id: string, title: string): Promise<Note> => {
 // };
 
 export const deleteNote = async (id: string) => {
-  await axios.delete(`${API_URL}/delete/${id}`);
+  await axios.delete(`${API_URL}/delete/${id}`, { withCredentials: true });
 };

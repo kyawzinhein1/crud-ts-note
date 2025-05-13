@@ -4,7 +4,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 
 function Main() {
   return (
-    <section className="max-w-4xl mx-auto">
+    <section className="max-w-4xl mx-auto px-3">
       <ToastContainer
         position="bottom-right"
         autoClose={5000}

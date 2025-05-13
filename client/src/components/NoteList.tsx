@@ -60,31 +60,38 @@ const NoteList = () => {
         />
       ) : (
         <p className="border-2 px-4 py-2 w-fit my-4 rounded-md">
-          <Link to={"/login"} className="font-bold underline">Login</Link> for creating your own share.
+          <Link to={"/login"} className="font-bold underline">
+            Login
+          </Link>{" "}
+          for creating your own share.
         </p>
       )}
       <ul>
         {notes.map((note, index) => (
           <li key={index} className="flex items-center gap-2 mb-2">
             <p className="font-semibold">{note.title}</p>
-            <button
-              type="button"
-              onClick={() => {
-                handleDeleteNote(note._id);
-              }}
-              className="text-red-600 underline font-medium cursor-pointer"
-            >
-              Delete
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setEditNote(note);
-              }}
-              className="underline font-medium cursor-pointer"
-            >
-              Edit
-            </button>
+            {note.userId === userInfo?._id && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleDeleteNote(note._id);
+                  }}
+                  className="text-red-600 underline font-medium cursor-pointer"
+                >
+                  Delete
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEditNote(note);
+                  }}
+                  className="underline font-medium cursor-pointer"
+                >
+                  Edit
+                </button>
+              </>
+            )}
           </li>
         ))}
       </ul>
