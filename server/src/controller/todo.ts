@@ -1,11 +1,15 @@
 import { Request, Response } from "express";
 import { Todo } from "../models/todo";
+import { AuthRequest } from "../middlewares/authMiddleware";
 
-export const createTodo = async (req: Request, res: Response) => {
+export const createTodo = async (req: AuthRequest, res: Response) => {
+  const { title } = req.body;
+  const userId = req.user?._id;
+
   try {
-    const { title } = req.body;
     const newTodo = await Todo.create({
       title,
+      userId,
     });
 
     res.status(201).json({ message: "New todo added", todo: newTodo });

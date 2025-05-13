@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import { deleteNote, getNotes, updateNote } from "../services/note";
 import { Note } from "../types/note";
 import Input from "./Input";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
+import { Link } from "react-router-dom";
 
 const NoteList = () => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [editNote, setEditNote] = useState<Note | null>(null);
+
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
 
   useEffect(() => {
     const fetchNote = async () => {
@@ -46,12 +51,18 @@ const NoteList = () => {
   return (
     <div>
       <h2 className="text-xl font-bold">Share</h2>
-      <Input
-        onAddNote={handleAddNote}
-        onUpdateNote={handleUpdateNote}
-        editingNote={editNote}
-        setEditingNote={setEditNote}
-      />
+      {userInfo ? (
+        <Input
+          onAddNote={handleAddNote}
+          onUpdateNote={handleUpdateNote}
+          editingNote={editNote}
+          setEditingNote={setEditNote}
+        />
+      ) : (
+        <p className="border-2 px-4 py-2 w-fit my-4 rounded-md">
+          <Link to={"/login"} className="font-bold underline">Login</Link> for creating your own share.
+        </p>
+      )}
       <ul>
         {notes.map((note, index) => (
           <li key={index} className="flex items-center gap-2 mb-2">
